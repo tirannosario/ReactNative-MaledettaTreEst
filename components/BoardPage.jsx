@@ -8,10 +8,12 @@ class BoardPage extends React.Component {
         direction: null
     }
     componentDidMount(){
-        const { line, direction} = this.props.route.params
-        this.state.nameLine = line
-        this.state.direction = direction
-        this.setState(this.state)
+        if(this.props.route.params != null){
+            const { line, direction} = this.props.route.params
+            this.state.nameLine = line
+            this.state.direction = direction
+            this.setState(this.state)
+        }
      }
 
     render() { 

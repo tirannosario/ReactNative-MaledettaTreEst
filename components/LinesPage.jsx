@@ -4,6 +4,7 @@ import { useState, createContext, useContext } from 'react';
 import { MyContext } from '../context';
 import CommunicationController from '../CommunicationController';
 import Row from './Row';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Separator = () => (
     <View style={styles.separator} />
@@ -44,6 +45,7 @@ class LinesPage extends React.Component {
 
     handleLineClick = (nameLine, direction) => {
         // console.log(nameLine + " : " + direction)
+        AsyncStorage.setItem("did", direction.did.toString());
         this.props.navigation.navigate("Board", {line: nameLine, direction: direction})
     }
 }
