@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity } from 'react-native';
+import { useState, createContext, useContext } from 'react';
+import { MyContext } from '../context';
 
 const SingleLine = ({ title }) => (
     <View style={styles.singleLine}>
@@ -12,16 +14,28 @@ const Separator = () => (
 );
 
 class LinesPage extends React.Component {
+    static contextType = MyContext
+
     state = {
         lines:[{id:1, title:"ciao"}, {id:2, title:"come"}, {id:3, title:"va"}]
     }
 
     renderItem(item) {
-        console.log(item)
+        // console.log(item)
         return <SingleLine title={item.item.title} />
     }
 
-    render() { 
+    componentDidMount(){
+        console.log(this.context)
+        // CommunicationController.getLines(this.state.sid)
+        // .then(unmarshelledObject => {
+        //     this.state.lines = unmarshelledObject["lines"]
+        //     this.setState(this.state)
+        // })
+        // .catch(error => console.log("ERRORE " + error))
+    }
+
+    render() {
         return <View style={styles.container}>
         <TouchableOpacity activeOpacity={0.95}  style={styles.btnProfilo}>
              <Text>Profilo</Text>
@@ -78,5 +92,5 @@ const styles = StyleSheet.create({
         borderBottomWidth: StyleSheet.hairlineWidth,
       }
   });
- 
+
 export default LinesPage;
