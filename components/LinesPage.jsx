@@ -2,12 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity } from 'react-native';
 import { useState, createContext, useContext } from 'react';
 import { MyContext } from '../context';
-
-const SingleLine = ({ title }) => (
-    <View style={styles.singleLine}>
-      <Text>{title}</Text>
-    </View>
-  );
+import CommunicationController from '../CommunicationController';
+import Row from './Row';
 
 const Separator = () => (
     <View style={styles.separator} />
@@ -17,22 +13,17 @@ class LinesPage extends React.Component {
     static contextType = MyContext
 
     state = {
-        lines:[{id:1, title:"ciao"}, {id:2, title:"come"}, {id:3, title:"va"}]
-    }
-
-    renderItem(item) {
-        // console.log(item)
-        return <SingleLine title={item.item.title} />
+        lines:[]
     }
 
     componentDidMount(){
-        console.log(this.context)
-        // CommunicationController.getLines(this.state.sid)
-        // .then(unmarshelledObject => {
-        //     this.state.lines = unmarshelledObject["lines"]
-        //     this.setState(this.state)
-        // })
-        // .catch(error => console.log("ERRORE " + error))
+        const sid = this.context.sid
+        CommunicationController.getLines(sid)
+        .then(unmarshelledObject => {
+            this.state.lines = unmarshelledObject["lines"]
+            this.setState(this.state)
+        })
+        .catch(error => console.log("ERRORE " + error))
     }
 
     render() {
@@ -43,22 +34,25 @@ class LinesPage extends React.Component {
         <Text style={styles.titleLine}>Scegli una Direzione</Text>
         <View style={styles.listLines}>
             <FlatList
-            style={styles.listLines}
-            data={this.state.lines}
-            renderItem={this.renderItem}
-            keyExtractor={item => item.id}
+                data={this.state.lines}
+                renderItem={(item) => {return (<Row data={item} handleLineClick={this.handleLineClick}/>)}}
+                keyExtractor={item => item["terminus1"]["sname"] + " - " + item["terminus2"]["sname"]}
             />
         </View>
-        {/* <Button title="Vai Alla Bacheca" onPress={() => this.props.navigation.navigate("Board")}/>  */}
       </View>
+    }
+
+    handleLineClick = (nameLine, direction) => {
+        // console.log(nameLine + " : " + direction)
+        this.props.navigation.navigate("Board", {line: nameLine, direction: direction})
     }
 }
 
 
 const styles = StyleSheet.create({
     container: {
+      backgroundColor: "#fff",
       flex: 1,
-      backgroundColor: '#fff',
       justifyContent: 'space-evenly',
     },
     btnProfilo: {
@@ -75,10 +69,12 @@ const styles = StyleSheet.create({
         flex:4,
         fontSize: 10,
         color: "black",
-        backgroundColor: "yellow"
+        backgroundColor: "#fff",
+        justifyContent: "center",
+        alignItems: "center",
     },
     titleLine:{
-        fontSize: 20,
+        fontSize: 25,
         flex:0.5,
         marginTop: 20,
         marginLeft: 20
