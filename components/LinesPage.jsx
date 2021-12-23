@@ -23,6 +23,11 @@ class LinesPage extends React.Component {
         .then(unmarshelledObject => {
             this.state.lines = unmarshelledObject["lines"]
             this.setState(this.state)
+            // se ho già scelto un did in precedenza mi riporta alla corrispettiva bacheca
+            this.checkDid().then(did => {
+                if(did != -1)
+                    this.props.navigation.navigate("Board")
+            })
         })
         .catch(error => console.log("ERRORE " + error))
     }
@@ -48,6 +53,16 @@ class LinesPage extends React.Component {
         AsyncStorage.setItem("did", direction.did.toString());
         this.props.navigation.navigate("Board")
     }
+
+    async checkDid() {
+        const did = await AsyncStorage.getItem("did")
+        if (did) {    
+            console.log("Ho già il DID: " + did)
+            return did
+        }
+        else
+          return -1
+      }
 }
 
 

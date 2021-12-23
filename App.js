@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -20,19 +20,13 @@ class App extends React.Component {
 
   componentDidMount(){
     this.checkSid().then().catch(error => console.log(error));
-    this.checkDid().then().catch(error => console.log(error));
   }
 
   render() {
-    if(this.state.did != null && this.state.sid != null){
-      if(this.state.did === -1)
-        initialPage = "Lines"
-      else
-        initialPage = "Board"
-
+    if(this.state.sid != null){
       return <MyContext.Provider value={{sid: this.state.sid}}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName={initialPage}>
+          <Stack.Navigator initialRouteName='Lines'>
             {/* il Navigation viene passato tra i props agli Screen Figli */}
             <Stack.Screen name="Lines" component={LinesPage} options={{title: "Linee"}}/>
             <Stack.Screen name="Board" component={BoardPage} options={{title: "Bacheca"}}/>
@@ -60,16 +54,6 @@ class App extends React.Component {
           this.setState({sid: newSid})
         })
     }
-  }
-
-  async checkDid() {
-    const did = await AsyncStorage.getItem("did")
-    if (did) {    
-        console.log("Ho già il DID: " + did)
-        this.setState({did: did})
-    }
-    else
-      this.setState({did: -1})
   }
 }
 
