@@ -48,9 +48,10 @@ class LinesPage extends React.Component {
       </View>
     }
 
-    handleLineClick = (nameLine, direction) => {
+    handleLineClick = (direction, inverseDirection) => {
         // console.log(nameLine + " : " + direction)
         AsyncStorage.setItem("did", direction.did.toString());
+        AsyncStorage.setItem("inverseDid", inverseDirection.did.toString());
         this.props.navigation.navigate("Board")
     }
 

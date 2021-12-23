@@ -16,13 +16,13 @@ class Row extends React.Component {
         <Separator/>
         <View>
             <View>
-                <Button title={"Direzione " + line["terminus1"]["sname"]} onPress={() => this.props.handleLineClick(nameLine, line["terminus1"])}/>
+                <Button title={"Direzione " + line["terminus1"]["sname"]} onPress={() => this.props.handleLineClick(line["terminus1"], line["terminus2"])}/>
             </View>
         </View>
         <Separator/>
         <View>
             <View>
-                <Button title={"Direzione " + line["terminus2"]["sname"]} onPress={() => this.props.handleLineClick(nameLine, line["terminus2"])}/>
+                <Button title={"Direzione " + line["terminus2"]["sname"]} onPress={() => this.props.handleLineClick(line["terminus2"], line["terminus1"])}/>
             </View>
         </View>
         <Separator/>
