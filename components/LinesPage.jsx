@@ -46,7 +46,7 @@ class LinesPage extends React.Component {
     handleLineClick = (nameLine, direction) => {
         // console.log(nameLine + " : " + direction)
         AsyncStorage.setItem("did", direction.did.toString());
-        this.props.navigation.navigate("Board", {line: nameLine, direction: direction})
+        this.props.navigation.navigate("Board")
     }
 }
 
