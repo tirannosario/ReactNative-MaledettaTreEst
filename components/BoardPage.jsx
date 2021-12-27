@@ -4,7 +4,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import CommunicationController from '../CommunicationController';
 import { MyContext } from '../context';
 import Post from './Post';
-import { useFocusEffect } from '@react-navigation/native';
 
 class BoardPage extends React.Component {
     static contextType = MyContext
@@ -12,7 +11,8 @@ class BoardPage extends React.Component {
     state = {
         did: null,
         stations: [],
-        posts: []
+        postsFromFollow: [],
+        postsFromAll: []
     }
 
     componentDidMount(){
@@ -24,8 +24,7 @@ class BoardPage extends React.Component {
             .then(unmarshelledObject => this.state.stations = unmarshelledObject.stations)
             .then(CommunicationController.getPosts(sid, did)
             .then(unmarshelledObject => {
-                this.state.posts = unmarshelledObject.posts
-                this.setState(this.state)
+                this.handlePosts(unmarshelledObject.posts)
             }))
         })
 
@@ -35,7 +34,7 @@ class BoardPage extends React.Component {
     }
 
     render() { 
-        if(this.state.did != null && this.state.stations.length!=0 && this.state.posts.length!=0){
+        if(this.state.did != null && this.state.stations.length!=0){
         return <View style={styles.container}>
             <View style={styles.infoStyle}>
                 <View style={styles.infoDirectionStyle}>
@@ -52,18 +51,18 @@ class BoardPage extends React.Component {
             <Text style={styles.infoListStyle}>Da Utenti Seguiti</Text>
             <View style={styles.postListStyle}>
                 <FlatList
-                    data={this.state.posts}
+                    data={this.state.postsFromFollow}
                     renderItem={(item) => {return (<Post data={item}/>)}}
                     keyExtractor={item => item.datetime}
                 />
             </View>
             <Text style={styles.infoListStyle}>Da Tutti</Text>
             <View style={styles.postListStyle}>
-                {/* <FlatList
-                    data={this.state.posts}
+                <FlatList
+                    data={this.state.postsFromAll}
                     renderItem={(item) => {return (<Post data={item}/>)}}
                     keyExtractor={item => item.datetime}
-                /> */}
+                />
             </View>
             <TouchableOpacity
                         activeOpacity={0.7}
@@ -113,13 +112,24 @@ class BoardPage extends React.Component {
     }
 
     refreshPosts = (sid, did) => {
+        this.state.postsFromFollow = []
+        this.state.postsFromAll = []
         if(sid != null && did != null){
             CommunicationController.getPosts(sid, did)
             .then(unmarshelledObject => {
-                this.state.posts = unmarshelledObject.posts
-                this.setState(this.state)
+                this.handlePosts(unmarshelledObject.posts)
             })
         }
+    }
+
+    handlePosts = (postsList) => {
+        for(const post of postsList){
+            if(post.followingAuthor)
+                this.state.postsFromFollow.push(post)
+            else
+                this.state.postsFromAll.push(post)
+        }
+        this.setState(this.state)
     }
 }
 

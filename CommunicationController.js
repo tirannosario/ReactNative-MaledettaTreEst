@@ -64,7 +64,6 @@ export default class CommunicationController {
             parameter.status = status
         if(comment != "")
             parameter.comment = comment
-        console.log("oo " + parameter)
         return await CommunicationController.genericRequest(endPoint, parameter);
     }
 
