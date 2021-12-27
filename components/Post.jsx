@@ -7,6 +7,10 @@ const Separator = () => (
     <View style={styles.separator} />
   );
 
+const delay_values = ["In Orario", "Di pochi minuti", "Oltre 15 minuti", "Treni Soppressi"]
+const status_values = ["Situazione ideale", "Accettabile", "Gravi problemi per i passeggeri"]
+
+
 class Post extends React.Component {
     state = {
         pic:""
@@ -47,8 +51,8 @@ class Post extends React.Component {
         return <View style={styles.postStyle}>
             <Separator/>
                 {/* <Image style={styles.img} source={{uri:'data:image/png;base64,' + this.state.pic}}/> */}
-                <Text>delay : {post.delay}</Text>
-                <Text>status : {post.status}</Text>
+                <Text>delay : {delay_values[post.delay]}</Text>
+                <Text>status : {status_values[post.status]}</Text>
                 <Text>comment : {post.comment}</Text>
                 <Text>following Author : {post.followingAuthor}</Text>
                 <Text>datetime : {post.datetime}</Text>

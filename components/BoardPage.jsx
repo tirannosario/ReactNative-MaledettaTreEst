@@ -33,13 +33,6 @@ class BoardPage extends React.Component {
 
     }
 
-    renderPostList(){
-        if(this.state.postsFromFollow.length > 0)
-        {
-
-        }
-    }
-
     render() { 
         if(this.state.did != null && this.state.stations.length!=0){
         return <View style={styles.container}>
