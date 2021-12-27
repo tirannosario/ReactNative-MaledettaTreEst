@@ -57,7 +57,14 @@ export default class CommunicationController {
 
     static async addPost(sid, did, delay, status, comment){
         const endPoint = "addPost"
-        const parameter = {sid: sid, did: did, delay: delay, status: status, comment: comment}
+        let parameter = {sid: sid, did: did}
+        if(delay != -1)
+            parameter.delay = delay
+        if(status != -1)
+            parameter.status = status
+        if(comment != "")
+            parameter.comment = comment
+        console.log("oo " + parameter)
         return await CommunicationController.genericRequest(endPoint, parameter);
     }
 

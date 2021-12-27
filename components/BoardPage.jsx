@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CommunicationController from '../CommunicationController';
 import { MyContext } from '../context';
@@ -31,8 +31,12 @@ class BoardPage extends React.Component {
 
     render() { 
         if(this.state.did != null && this.state.stations.length!=0 && this.state.posts.length!=0){
-        return <View>
+        return <View style={styles.container}>
             <View style={styles.infoStyle}>
+                <View style={styles.infoDirectionStyle}>
+                    <Text style={{textAlign:'left', flex:1}}>Partenza</Text>
+                    <Text style={{textAlign:'right', flex:1}}>Arrivo</Text>
+                </View>
                 <View style={styles.infoDirectionStyle}>
                     <Text style={[styles.directionStyle, {textAlign:'left'}]}>{this.state.stations[0].sname}</Text>
                     <Button style={styles.detailBtnStyle} title="Inverti" onPress={() => this.switchDirection()}></Button>
@@ -40,13 +44,37 @@ class BoardPage extends React.Component {
                 </View>
                 <Button style={styles.detailBtnStyle} title="Dettagli Tratta"></Button>
             </View>
-            <View>
-            <FlatList
-                data={this.state.posts}
-                renderItem={(item) => {return (<Post data={item}/>)}}
-                keyExtractor={item => item.datetime}
-            />
+            <Text style={styles.infoListStyle}>Da Utenti Seguiti</Text>
+            <View style={styles.postListStyle}>
+                <FlatList
+                    data={this.state.posts}
+                    renderItem={(item) => {return (<Post data={item}/>)}}
+                    keyExtractor={item => item.datetime}
+                />
             </View>
+            <Text style={styles.infoListStyle}>Da Tutti</Text>
+            <View style={styles.postListStyle}>
+                {/* <FlatList
+                    data={this.state.posts}
+                    renderItem={(item) => {return (<Post data={item}/>)}}
+                    keyExtractor={item => item.datetime}
+                /> */}
+            </View>
+            <TouchableOpacity
+                        activeOpacity={0.7}
+                        style={styles.touchableStyle}
+                        onPress={() => this.handleCreatePost()}
+                        >
+                        <Image
+                            source={{
+                            uri:
+                                'https://raw.githubusercontent.com/AboutReact/sampleresource/master/plus_icon.png',
+                            }}
+                            // For local image
+                            //source={require('./images/float-add-icon.png')}
+                            style={styles.floatingButtonStyle}
+                        />
+            </TouchableOpacity>
         </View>;
         }
         else
@@ -72,16 +100,26 @@ class BoardPage extends React.Component {
             .catch(error => console.log(error))
         })
     }
+
+    handleCreatePost = () => {
+        this.props.navigation.navigate("CreatePost", {did: this.state.did,
+             line: this.state.stations[0].sname + "-" +this.state.stations[this.state.stations.length-1].sname,
+                direction: this.state.stations[this.state.stations.length-1].sname})
+    }
 }
 
 
 const styles = StyleSheet.create({
+    container:{
+        flex:1
+    },
     separator: {
         marginVertical: 8,
         borderBottomColor: '#737373',
         borderBottomWidth: StyleSheet.hairlineWidth,
       },
     infoStyle: {
+        flex:2,
         alignItems: 'center',
         shadowColor: 'rgb(0, 0, 0)',
             shadowOffset: {
@@ -111,9 +149,32 @@ const styles = StyleSheet.create({
     detailBtnStyle:{
         flex:1,
         textAlign: 'center',
-        marginLeft: 5,
-        marginRight:5
-    }
+        marginLeft: 10,
+        marginRight:10
+    },
+    touchableStyle: {
+        position: 'absolute',
+        width: 60,
+        height: 60,
+        alignItems: 'center',
+        justifyContent: 'center',
+        right: 30,
+        bottom: 40,
+     },
+     floatingButtonStyle: {
+        resizeMode: 'contain',
+        width: 60,
+        height: 60,
+      },
+      postListStyle:{
+          flex:4
+      },
+      infoListStyle:{
+          fontSize: 20,
+          flex: 0.5,
+          margin: 5,
+          marginLeft: 12
+      }
   });
  
 export default BoardPage;

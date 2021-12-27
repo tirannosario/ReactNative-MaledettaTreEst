@@ -8,6 +8,7 @@ import LinesPage from './components/LinesPage';
 import BoardPage from './components/BoardPage';
 import CommunicationController from './CommunicationController';
 import { MyContext } from './context';
+import CreatePostPage from './components/CreatePostPage';
 
 
 const Stack = createNativeStackNavigator();
@@ -30,6 +31,7 @@ class App extends React.Component {
             {/* il Navigation viene passato tra i props agli Screen Figli */}
             <Stack.Screen name="Lines" component={LinesPage} options={{title: "Linee"}}/>
             <Stack.Screen name="Board" component={BoardPage} options={{title: "Bacheca"}}/>
+            <Stack.Screen name="CreatePost" component={CreatePostPage} options={{title: "Crea Post"}}/>
           </Stack.Navigator>
         </NavigationContainer>
       </MyContext.Provider>
