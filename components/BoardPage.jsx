@@ -74,7 +74,7 @@ class BoardPage extends React.Component {
                     keyExtractor={item => item.datetime}
                 />
             </View>)}
-            
+
             <TouchableOpacity
                         activeOpacity={0.7}
                         style={styles.touchableStyle}
@@ -123,8 +123,6 @@ class BoardPage extends React.Component {
     }
 
     refreshPosts = (sid, did) => {
-        this.state.postsFromFollow = []
-        this.state.postsFromAll = []
         if(sid != null && did != null){
             CommunicationController.getPosts(sid, did)
             .then(unmarshelledObject => {
@@ -134,6 +132,8 @@ class BoardPage extends React.Component {
     }
 
     handlePosts = (postsList) => {
+        this.state.postsFromFollow = []
+        this.state.postsFromAll = []
         for(const post of postsList){
             if(post.followingAuthor)
                 this.state.postsFromFollow.push(post)
