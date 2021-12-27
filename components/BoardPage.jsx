@@ -49,24 +49,28 @@ class BoardPage extends React.Component {
                 <Button style={styles.detailBtnStyle} title="Dettagli Tratta"></Button>
             </View>
             <Text style={styles.infoListStyle}>Da Utenti Seguiti</Text>
-            {this.state.postsFromFollow.length > 0 && (
-            <View style={styles.postListStyle}>
+            {this.state.postsFromFollow.length > 0 ?
+             (<View style={styles.postListStyle}>
                 <FlatList
                     data={this.state.postsFromFollow}
                     renderItem={(item) => {return (<Post data={item}/>)}}
                     keyExtractor={item => item.datetime}
                 />
-            </View>)}
+            </View>)
+            :
+            <Text style={styles.infoText}>Nessun Post...</Text>}
 
             <Text style={styles.infoListStyle}>Da Tutti</Text>
-            {this.state.postsFromAll.length > 0 &&  (
-            <View style={styles.postListStyle}>
+            {this.state.postsFromAll.length > 0 ?
+            (<View style={styles.postListStyle}>
                 <FlatList
                     data={this.state.postsFromAll}
                     renderItem={(item) => {return (<Post data={item}/>)}}
                     keyExtractor={item => item.datetime}
                 />
-            </View>)}
+            </View>)
+            :
+            <Text style={styles.infoText}>Nessun Post...</Text>}
 
             <TouchableOpacity
                         activeOpacity={0.7}
@@ -199,12 +203,19 @@ const styles = StyleSheet.create({
       },
       postListStyle:{
           flex:4,
-          margin: 12
+          marginLeft: 12,
+          marginRight: 12
       },
       infoListStyle:{
           fontSize: 20,
-          margin: 4,
-          marginLeft: 12
+          marginTop: 10,
+          marginLeft: 16,
+          fontWeight: 'bold'
+      },
+      infoText:{
+          marginLeft: 20,
+          fontSize: 16,
+          color: 'grey'
       }
   });
  
