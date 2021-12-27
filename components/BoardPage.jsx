@@ -33,6 +33,13 @@ class BoardPage extends React.Component {
 
     }
 
+    renderPostList(){
+        if(this.state.postsFromFollow.length > 0)
+        {
+
+        }
+    }
+
     render() { 
         if(this.state.did != null && this.state.stations.length!=0){
         return <View style={styles.container}>
@@ -49,21 +56,25 @@ class BoardPage extends React.Component {
                 <Button style={styles.detailBtnStyle} title="Dettagli Tratta"></Button>
             </View>
             <Text style={styles.infoListStyle}>Da Utenti Seguiti</Text>
+            {this.state.postsFromFollow.length > 0 && (
             <View style={styles.postListStyle}>
                 <FlatList
                     data={this.state.postsFromFollow}
                     renderItem={(item) => {return (<Post data={item}/>)}}
                     keyExtractor={item => item.datetime}
                 />
-            </View>
+            </View>)}
+
             <Text style={styles.infoListStyle}>Da Tutti</Text>
+            {this.state.postsFromAll.length > 0 &&  (
             <View style={styles.postListStyle}>
                 <FlatList
                     data={this.state.postsFromAll}
                     renderItem={(item) => {return (<Post data={item}/>)}}
                     keyExtractor={item => item.datetime}
                 />
-            </View>
+            </View>)}
+            
             <TouchableOpacity
                         activeOpacity={0.7}
                         style={styles.touchableStyle}
