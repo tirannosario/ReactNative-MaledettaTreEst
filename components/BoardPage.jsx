@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import CommunicationController from '../CommunicationController';
 import { MyContext } from '../context';
 import Post from './Post';
-
+import { useFocusEffect } from '@react-navigation/native';
 
 class BoardPage extends React.Component {
     static contextType = MyContext
@@ -14,6 +14,7 @@ class BoardPage extends React.Component {
         stations: [],
         posts: []
     }
+
     componentDidMount(){
         const sid = this.context.sid
         this.checkDid().then(did => {
@@ -27,6 +28,10 @@ class BoardPage extends React.Component {
                 this.setState(this.state)
             }))
         })
+
+        //hooks che permette di eseguire delle azioni quando l'activity ritorna in focus
+        this.props.navigation.addListener('focus', () => this.refreshPosts(sid, this.state.did))
+
     }
 
     render() { 
@@ -105,6 +110,16 @@ class BoardPage extends React.Component {
         this.props.navigation.navigate("CreatePost", {did: this.state.did,
              line: this.state.stations[0].sname + "-" +this.state.stations[this.state.stations.length-1].sname,
                 direction: this.state.stations[this.state.stations.length-1].sname})
+    }
+
+    refreshPosts = (sid, did) => {
+        if(sid != null && did != null){
+            CommunicationController.getPosts(sid, did)
+            .then(unmarshelledObject => {
+                this.state.posts = unmarshelledObject.posts
+                this.setState(this.state)
+            })
+        }
     }
 }
 
