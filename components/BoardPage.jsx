@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: StyleSheet.hairlineWidth,
       },
     infoStyle: {
-        flex:2,
+        flex:1,
         alignItems: 'center',
         shadowColor: 'rgb(0, 0, 0)',
             shadowOffset: {
@@ -160,12 +160,13 @@ const styles = StyleSheet.create({
             elevation: 2,
             backgroundColor: 'white',
             borderRadius: 15,
-            padding: 12,
-            margin: 10,
+            padding: 18,
+            margin: 16,
     },
     infoDirectionStyle: {
         flexDirection: 'row',
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-evenly',
+        alignItems: 'center'
 
     },
     directionStyle:{
@@ -173,7 +174,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         alignItems: 'center',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        color: 'black'
     },
     detailBtnStyle:{
         flex:1,
@@ -196,12 +198,12 @@ const styles = StyleSheet.create({
         height: 60,
       },
       postListStyle:{
-          flex:4
+          flex:4,
+          margin: 12
       },
       infoListStyle:{
           fontSize: 20,
-          flex: 0.5,
-          margin: 5,
+          margin: 4,
           marginLeft: 12
       }
   });
