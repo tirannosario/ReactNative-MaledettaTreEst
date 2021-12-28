@@ -81,6 +81,18 @@ export default class CommunicationController {
         return await CommunicationController.genericRequest(endPoint, parameter);
     }
     
+    static async follow(sid, uid){
+        console.log("Faccio il follow " + uid);
+        const endPoint = "follow"
+        const parameter = {sid: sid, uid: uid}
+        return await CommunicationController.genericRequest(endPoint, parameter);
+    }
 
+    static async unfollow(sid, uid){
+        console.log("Faccio l'unfollow " + uid);
+        const endPoint = "unfollow"
+        const parameter = {sid: sid, uid: uid}
+        return await CommunicationController.genericRequest(endPoint, parameter);
+    }
 
 }

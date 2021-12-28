@@ -34,6 +34,8 @@ class BoardPage extends React.Component {
     }
 
     render() { 
+        const sid = this.context.sid
+
         if(this.state.did != null && this.state.stations.length!=0){
         return <View style={styles.container}>
             <View style={styles.infoStyle}>
@@ -53,7 +55,7 @@ class BoardPage extends React.Component {
              (<View style={styles.postListStyle}>
                 <FlatList
                     data={this.state.postsFromFollow}
-                    renderItem={(item) => {return (<Post data={item}/>)}}
+                    renderItem={(item) => {return (<Post data={item} refreshBoard={() => this.refreshPosts(sid, this.state.did)}/>)}}
                     keyExtractor={item => item.datetime}
                 />
             </View>)
@@ -65,7 +67,7 @@ class BoardPage extends React.Component {
             (<View style={styles.postListStyle}>
                 <FlatList
                     data={this.state.postsFromAll}
-                    renderItem={(item) => {return (<Post data={item}/>)}}
+                    renderItem={(item) => {return (<Post data={item} refreshBoard={() => this.refreshPosts(sid, this.state.did)}/>)}}
                     keyExtractor={item => item.datetime}
                 />
             </View>)
@@ -139,6 +141,7 @@ class BoardPage extends React.Component {
         }
         this.setState(this.state)
     }
+
 }
 
 
@@ -185,7 +188,7 @@ const styles = StyleSheet.create({
         flex:1,
         textAlign: 'center',
         marginLeft: 10,
-        marginRight:10
+        marginRight:10,
     },
     touchableStyle: {
         position: 'absolute',
@@ -208,7 +211,7 @@ const styles = StyleSheet.create({
       },
       infoListStyle:{
           fontSize: 20,
-          marginTop: 10,
+          marginTop: 5,
           marginLeft: 16,
           fontWeight: 'bold'
       },
