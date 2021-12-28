@@ -80,12 +80,7 @@ class BoardPage extends React.Component {
                         onPress={() => this.handleCreatePost()}
                         >
                         <Image
-                            source={{
-                            uri:
-                                'https://raw.githubusercontent.com/AboutReact/sampleresource/master/plus_icon.png',
-                            }}
-                            // For local image
-                            //source={require('./images/float-add-icon.png')}
+                            source={require('../assets/icon-add.png')}
                             style={styles.floatingButtonStyle}
                         />
             </TouchableOpacity>
@@ -199,11 +194,21 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         right: 30,
         bottom: 40,
+        shadowColor: 'rgb(0, 0, 0)',
+        shadowOffset: {
+          width: 1.5,
+          height: 1.5,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+        elevation: 2,
+        backgroundColor: 'white',
+        borderRadius: 30,
      },
      floatingButtonStyle: {
         resizeMode: 'contain',
-        width: 60,
-        height: 60,
+        width: 70,
+        height: 70,
       },
       postListStyle:{
           flex:4,
