@@ -21,13 +21,13 @@ class BoardPage extends React.Component {
             console.log("Bacheca n." + did)
             this.state.did = did
             CommunicationController.getStations(sid, did)
-            .then(unmarshelledObject => this.state.stations = unmarshelledObject.stations)
-            .then(CommunicationController.getPosts(sid, did)
             .then(unmarshelledObject => {
-                this.handlePosts(unmarshelledObject.posts)
-            }))
+                this.state.stations = unmarshelledObject.stations
+                CommunicationController.getPosts(sid, did)
+                .then(unmarshelledObject => this.handlePosts(unmarshelledObject.posts))
+            })
+            .catch(error => console.log(error))
         })
-
         //hooks che permette di eseguire delle azioni quando l'activity ritorna in focus
         this.props.navigation.addListener('focus', () => this.refreshPosts(sid, this.state.did))
 
@@ -122,6 +122,7 @@ class BoardPage extends React.Component {
     }
 
     refreshPosts = (sid, did) => {
+        console.log("Refresh Board " + did)
         if(sid != null && did != null){
             CommunicationController.getPosts(sid, did)
             .then(unmarshelledObject => {
