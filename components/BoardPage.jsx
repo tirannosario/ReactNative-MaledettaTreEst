@@ -40,12 +40,22 @@ class BoardPage extends React.Component {
         return <View style={styles.container}>
             <View style={styles.infoStyle}>
                 <View style={styles.infoDirectionStyle}>
-                    <Text style={{textAlign:'left', flex:1}}>Partenza</Text>
-                    <Text style={{textAlign:'right', flex:1}}>Arrivo</Text>
+                    <Text style={{textAlign:'left', flex:1, marginLeft:6}}>Partenza</Text>
+                    <Text style={{textAlign:'right', flex:1, marginRight:6}}>Arrivo</Text>
                 </View>
                 <View style={styles.infoDirectionStyle}>
                     <Text style={[styles.directionStyle, {textAlign:'left'}]}>{this.state.stations[0].sname}</Text>
-                    <Button style={styles.detailBtnStyle} title="Inverti" onPress={() => this.switchDirection()}></Button>
+                    <TouchableOpacity
+                        activeOpacity={0.7}
+                        style={styles.switchButtonStyle}
+                        onPress={() => this.switchDirection()}
+                        >
+                        <Image
+                            source={require('../assets/icon-switch.png')}
+                            style={styles.imgButtonSwitch}
+                        />
+                    </TouchableOpacity>
+                    {/* <Button style={styles.detailBtnStyle} title="Inverti" onPress={() => this.switchDirection()}></Button> */}
                     <Text style={[styles.directionStyle, {textAlign:'right'}]}>{this.state.stations[this.state.stations.length-1].sname}</Text>
                 </View>
                 <Button style={styles.detailBtnStyle} title="Dettagli Tratta"></Button>
@@ -170,7 +180,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         alignItems: 'center'
-
     },
     directionStyle:{
         flex:1,
@@ -178,7 +187,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         alignItems: 'center',
         alignSelf: 'center',
-        color: 'black'
+        color: 'black',
+        marginLeft: 6,
+        marginRight: 6
     },
     detailBtnStyle:{
         flex:1,
@@ -225,6 +236,19 @@ const styles = StyleSheet.create({
           marginLeft: 20,
           fontSize: 16,
           color: 'grey'
+      },
+      switchButtonStyle:{
+        width: 50,
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'purple',
+        borderRadius: 30,
+      },
+      imgButtonSwitch:{
+        resizeMode: 'contain',
+        width: 35,
+        height: 35,
       }
   });
  
