@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: StyleSheet.hairlineWidth,
       },
     infoStyle: {
-        flex:1,
+        // flex:1,
         alignItems: 'center',
         shadowColor: 'rgb(0, 0, 0)',
             shadowOffset: {
