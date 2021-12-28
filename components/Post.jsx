@@ -106,17 +106,17 @@ const styles = StyleSheet.create({
     postStyle:{
         alignItems: 'center',
         shadowColor: 'rgb(0, 0, 0)',
-            shadowOffset: {
-              width: 1.5,
-              height: 1.5,
-            },
-            shadowOpacity: 0.5,
-            shadowRadius: 5,
-            elevation: 2,
-            backgroundColor: 'white',
-            borderRadius: 15,
-            padding: 0,
-            margin: 10,
+        shadowOffset: {
+          width: 1,
+          height: 1,
+        },
+        shadowOpacity: 0.3,
+        shadowRadius: 5,
+        elevation: 2,
+        backgroundColor: 'white',
+        borderRadius: 15,
+        padding: 0,
+        margin: 10,
     },
     img: {
         // flex: 1,

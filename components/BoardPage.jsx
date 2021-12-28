@@ -55,7 +55,6 @@ class BoardPage extends React.Component {
                             style={styles.imgButtonSwitch}
                         />
                     </TouchableOpacity>
-                    {/* <Button style={styles.detailBtnStyle} title="Inverti" onPress={() => this.switchDirection()}></Button> */}
                     <Text style={[styles.directionStyle, {textAlign:'right'}]}>{this.state.stations[this.state.stations.length-1].sname}</Text>
                 </View>
                 <Button style={styles.detailBtnStyle} title="Dettagli Tratta"></Button>
@@ -122,8 +121,7 @@ class BoardPage extends React.Component {
 
     handleCreatePost = () => {
         this.props.navigation.navigate("CreatePost", {did: this.state.did,
-             line: this.state.stations[0].sname + "-" +this.state.stations[this.state.stations.length-1].sname,
-                direction: this.state.stations[this.state.stations.length-1].sname})
+             departure: this.state.stations[0].sname, arrival:this.state.stations[this.state.stations.length-1].sname})
     }
 
     refreshPosts = (sid, did) => {
@@ -153,7 +151,8 @@ class BoardPage extends React.Component {
 
 const styles = StyleSheet.create({
     container:{
-        flex:1
+        flex:1,
+        backgroundColor: '#fff'
     },
     separator: {
         marginVertical: 8,
@@ -165,10 +164,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         shadowColor: 'rgb(0, 0, 0)',
             shadowOffset: {
-              width: 1.5,
-              height: 1.5,
+              width: 1,
+              height: 1,
             },
-            shadowOpacity: 0.5,
+            shadowOpacity: 0.3,
             shadowRadius: 5,
             elevation: 2,
             backgroundColor: 'white',
@@ -187,7 +186,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         alignItems: 'center',
         alignSelf: 'center',
-        color: 'black',
+        color: '#333E63',
         marginLeft: 6,
         marginRight: 6
     },
