@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, Button } fr
 import CommunicationController from '../CommunicationController';
 import { MyContext } from '../context';
 import StorageManager from '../StorageManager';
+import * as ImagePicker from 'expo-image-picker';
 
 
 const Separator = () => (
@@ -22,7 +23,7 @@ class ProfilePage extends React.Component {
     componentDidMount(){
         CommunicationController.getProfile(this.state.sid)
         .then(unmarshelledObject => {
-            console.log(unmarshelledObject)
+            // console.log(unmarshelledObject)
             this.state.username = unmarshelledObject.name
             this.state.pic = unmarshelledObject.picture
             let sm = new StorageManager()
@@ -37,15 +38,50 @@ class ProfilePage extends React.Component {
     render() { 
         return <View style={styles.container}>
             <Image style={styles.imgStyle} source={{uri:'data:image/png;base64,' + (this.state.pic==null ? this.state.placeholderPic : this.state.pic)}}/>
-            <Button style={styles.btnChangePicStyle} title='Cambia Foto'></Button>
+            <Button style={styles.btnChangePicStyle} title='Cambia Foto' onPress={this.openImagePickerAsync}></Button>
             <Separator/>
-            <TextInput style={styles.input} onChangeText={this.onChangeComment} placeholder={this.state.username}></TextInput>
+            <TextInput style={styles.input} onChangeText={this.onChangeName} placeholder={this.state.username}></TextInput>
             <View style={styles.btnContainerRow}>
-                <Button style={styles.btnActions} title="Annulla"></Button>
-                <Button style={styles.btnActions} title="Salva"></Button>
+                <Button style={styles.btnActions} onPress={()=>this.props.navigation.goBack()} title="Annulla"></Button>
+                <Button style={styles.btnActions} onPress={()=>this.saveProfile()} title="Salva"></Button>
             </View>
         </View>;
     }
+
+    onChangeName = (value) => {
+        if(value.length > 20)
+            alert("Commento più piccolo di 20 caratteri, pls")
+        else {
+            this.state.username = value;
+        }
+    }
+
+    openImagePickerAsync = async () => {
+        let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    
+        if (permissionResult.granted === false) {
+          alert("Permission to access camera roll is required!");
+          return;
+        }
+    
+        let pickerResult = await ImagePicker.launchImageLibraryAsync({base64:true});
+        if(pickerResult.cancelled === true)
+            return
+        else {
+            //controllare che sia rettangolare e la size (attr.b width e height dell'oggetto pickResult)
+            this.state.pic = pickerResult.base64
+            this.setState(this.state)
+        }
+      }
+    
+      saveProfile(){
+          CommunicationController.setProfile(this.state.sid, this.state.username, this.state.pic)
+          .then(unmarshelledObject => {
+              console.log("Profilo Salvato")
+              this.props.navigation.goBack()
+            })
+          .catch(error => console.log(error))
+      }
 }
 
 const styles = StyleSheet.create({
@@ -69,7 +105,7 @@ const styles = StyleSheet.create({
         flex:1,
     },
     input: {
-        flex:0.1,
+        flex:0.15,
         width: "95%",
         height: 40,
         marginLeft: 4,

@@ -23,6 +23,17 @@ class Post extends React.Component {
     }
     
     componentDidMount(){
+        this.retrieveUserPic()
+    }
+
+    componentDidUpdate(pastProps){
+        if(pastProps.data.item.pversion != this.props.data.item.pversion){
+            console.log("nuova user pic!")
+            this.retrieveUserPic()
+        }
+    }
+
+    retrieveUserPic(){
         const sid = this.context.sid
         const post = this.props.data.item
         if(post.pversion > 0){
@@ -51,7 +62,6 @@ class Post extends React.Component {
                     error => {console.log(error)})
         }
     }
-
 
     render() { 
         const post = this.props.data.item

@@ -50,7 +50,7 @@ export default class CommunicationController {
     }
 
     static async setProfile(sid, name, picture) {
-        const endPoint = "getPosts";    
+        const endPoint = "setProfile";    
         const parameter = {sid: sid, name: name, picture: picture};      
         return await CommunicationController.genericRequest(endPoint, parameter); 
     }
