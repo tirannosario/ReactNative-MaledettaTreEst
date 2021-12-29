@@ -57,7 +57,12 @@ class BoardPage extends React.Component {
                     </TouchableOpacity>
                     <Text style={[styles.directionStyle, {textAlign:'right'}]}>{this.state.stations[this.state.stations.length-1].sname}</Text>
                 </View>
-                <Button style={styles.detailBtnStyle} title="Dettagli Tratta" onPress={()=>this.handleDetailClick()}></Button>
+                <TouchableOpacity
+                 activeOpacity={0.7}
+                 style={styles.detailBtnStyle}
+                 onPress={() => this.handleDetailClick()}>
+                     <Text style={styles.detailBtnTextStyle}>Dettagli Tratta</Text>
+                 </TouchableOpacity>
             </View>
             <Text style={styles.infoListStyle}>Da Utenti Seguiti</Text>
             {this.state.postsFromFollow.length > 0 ?
@@ -199,10 +204,27 @@ const styles = StyleSheet.create({
         marginRight: 6
     },
     detailBtnStyle:{
-        flex:1,
-        textAlign: 'center',
         marginLeft: 10,
         marginRight:10,
+        marginTop:20,
+        width: "80%",
+        height: 40,
+        justifyContent: 'center',
+        shadowColor: 'rgb(0, 0, 0)',
+        shadowOffset: {
+          width: 1,
+          height: 1,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 2,
+        elevation: 1,
+        backgroundColor: '#F8A059',
+        borderRadius: 30,
+    },
+    detailBtnTextStyle:{
+        textAlign: 'center',
+        fontSize: 18,
+        fontWeight: '400'
     },
     touchableStyle: {
         position: 'absolute',
@@ -237,7 +259,8 @@ const styles = StyleSheet.create({
           fontSize: 20,
           marginTop: 5,
           marginLeft: 16,
-          fontWeight: 'bold'
+          fontWeight: 'bold',
+          color:'#333E63'
       },
       infoText:{
           marginLeft: 20,
@@ -249,7 +272,7 @@ const styles = StyleSheet.create({
         height: 50,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'purple',
+        backgroundColor: 'white',
         borderRadius: 30,
       },
       imgButtonSwitch:{
