@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Text, View, StyleSheet, Image } from 'react-native';
+import { Button, Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import CommunicationController from '../CommunicationController';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MyContext } from '../context';
@@ -74,7 +74,12 @@ class Post extends React.Component {
                 <View style={[styles.rowStyle, styles.firstRow]}>
                     <Image style={styles.img} source={{uri:'data:image/png;base64,' + ((this.state.pic!=null && this.isValidBase64(this.state.pic)) ? this.state.pic : this.state.placeholderPic)}}/>
                     <Text style={styles.authorName}>{post.authorName}</Text>
-                    <Button title={post.followingAuthor ? "Non Seguire" : "Segui"} onPress={() => this.handleFollowUser(post.author, post.followingAuthor)}></Button>
+                    <TouchableOpacity
+                    activeOpacity={0.7}
+                    style={styles.followBtn}
+                    onPress={() => this.handleFollowUser(post.author, post.followingAuthor)}>
+                        <Text style={styles.followBtnText}>{post.followingAuthor ? "Non Seguire" : "Segui"}</Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.rowStyle}>
                     <Text style={styles.leftItem}>Ritardo</Text>
@@ -170,7 +175,22 @@ const styles = StyleSheet.create({
     },
     firstRow:{
         alignItems: 'center'
-    }
+    },
+    followBtn:{
+        padding: 8,
+        margin: 4,
+        justifyContent: 'center',
+        borderWidth: 1,
+        elevation: 1,
+        backgroundColor: '#fff',
+        borderRadius: 30,
+    },
+    followBtnText:{
+        textAlign: 'center',
+        fontSize: 16,
+        fontWeight: '400',
+        letterSpacing: 0.2
+    },
   });
  
 export default Post;

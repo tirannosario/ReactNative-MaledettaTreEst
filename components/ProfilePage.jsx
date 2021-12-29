@@ -38,12 +38,28 @@ class ProfilePage extends React.Component {
     render() { 
         return <View style={styles.container}>
             <Image style={styles.imgStyle} source={{uri:'data:image/png;base64,' + (this.state.pic==null ? this.state.placeholderPic : this.state.pic)}}/>
-            <Button style={styles.btnChangePicStyle} title='Cambia Foto' onPress={this.openImagePickerAsync}></Button>
+            <TouchableOpacity
+                activeOpacity={0.7}
+                style={[styles.btnActions, styles.btnChangePicStyle]}
+                onPress={this.openImagePickerAsync}>
+                    <Text style={styles.btnActionsText}>{"Cambia Foto"}</Text>
+                </TouchableOpacity>
             <Separator/>
+            <Text style={styles.infoText}>Username:</Text>
             <TextInput style={styles.input} onChangeText={this.onChangeName} placeholder={this.state.username}></TextInput>
             <View style={styles.btnContainerRow}>
-                <Button style={styles.btnActions} onPress={()=>this.props.navigation.goBack()} title="Annulla"></Button>
-                <Button style={styles.btnActions} onPress={()=>this.saveProfile()} title="Salva"></Button>
+                <TouchableOpacity
+                activeOpacity={0.7}
+                style={[styles.btnActions, styles.btnCancel]}
+                onPress={()=>this.props.navigation.goBack()}>
+                    <Text style={styles.btnActionsText}>{"Annulla"}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                activeOpacity={0.7}
+                style={[styles.btnActions, styles.btnSave]}
+                onPress={()=>this.saveProfile()}>
+                    <Text style={styles.btnActionsText}>{"Salva"}</Text>
+                </TouchableOpacity>
             </View>
         </View>;
     }
@@ -92,26 +108,37 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
       },
     separator: {
+        flex: 0.10,
         marginVertical: 10,
         borderBottomColor: '#737373',
         borderBottomWidth: StyleSheet.hairlineWidth,
     },
     imgStyle:{
-        flex:1,
+        flex:0.6,
         width: "50%",
         resizeMode: 'contain',
+        borderWidth:5,
+        borderColor: '#F8A059',
+        marginTop: 10
     },
     btnChangePicStyle:{
-        flex:1,
+       flex:0.15,
+       width:200
+    },
+    infoText:{
+        fontSize: 20,
+        color: '#333E63'
     },
     input: {
-        flex:0.15,
-        width: "95%",
-        height: 40,
+        flex:0.10,
+        width: "50%",
         marginLeft: 4,
         marginRight:4,
-        borderWidth:0.5,
-        padding: 10
+        marginTop:6,
+        borderWidth:0.6,
+        padding: 10,
+        borderRadius: 30,
+        fontSize: 16,
     },
     btnContainerRow:{
         flex:1,
@@ -121,6 +148,24 @@ const styles = StyleSheet.create({
     },
     btnActions:{
         flex:1,
+        marginLeft: 30,
+        marginRight:30,
+        marginTop:20,
+        height: 40,
+        justifyContent: 'center',
+        backgroundColor: '#F8A059',
+        borderRadius: 20,
+    },
+    btnActionsText:{
+        textAlign: 'center',
+        fontSize: 19,
+        fontWeight: '400',
+    },
+    btnCancel:{
+        backgroundColor: '#a6b0bf'
+    },
+    btnSave:{
+        backgroundColor: '#737aff'
     }
 })
  

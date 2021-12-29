@@ -91,7 +91,12 @@ class CreatePostPage extends React.Component {
                         </Picker>
                     </View>
                 </View>
-                <Button style={styles.btnCreate} title="Pubblica" onPress={() => this.createPost()}/>
+                <TouchableOpacity
+                activeOpacity={0.7}
+                style={styles.btnShare}
+                onPress={() => this.createPost()}>
+                    <Text style={styles.btnShareText}>Pubblica</Text>
+                </TouchableOpacity>
             </View>
         }
         return <View><Text>Loading...</Text></View>
@@ -165,9 +170,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         color: "orange"
     },
-    btnCreate : {
-        flex: 1
-    },
     infoStyle: {
         // flex:1,
         alignItems: 'center',
@@ -209,7 +211,24 @@ const styles = StyleSheet.create({
         width: "100%",
         margin: 6,
         justifyContent: 'space-between'
-    }
+    },
+    btnShare:{
+        flex: 0.3,
+        marginLeft: 10,
+        marginRight:10,
+        marginTop:20,
+        width: "80%",
+        height: 40,
+        justifyContent: 'center',
+        backgroundColor: '#F8A059',
+        borderRadius: 20,
+        alignSelf: 'center'
+    },
+    btnShareText:{
+        textAlign: 'center',
+        fontSize: 18,
+        fontWeight: '500'
+    },
   });
  
 export default CreatePostPage;
