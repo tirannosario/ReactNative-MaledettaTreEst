@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity, Image } from 'react-native';
 import { useState, createContext, useContext } from 'react';
 import { MyContext } from '../context';
 import CommunicationController from '../CommunicationController';
@@ -34,9 +34,6 @@ class LinesPage extends React.Component {
 
     render() {
         return <View style={styles.container}>
-        <TouchableOpacity activeOpacity={0.95}  style={styles.btnProfilo}>
-             <Text>Profilo</Text>
-        </TouchableOpacity>
         <Text style={styles.titleLine}>Scegli una Direzione</Text>
         <View style={styles.listLines}>
             <FlatList
@@ -53,6 +50,10 @@ class LinesPage extends React.Component {
         AsyncStorage.setItem("did", direction.did.toString());
         AsyncStorage.setItem("inverseDid", inverseDirection.did.toString());
         this.props.navigation.navigate("Board")
+    }
+
+    handleProfileClick = () => {
+        this.props.navigation.navigate("Profile")
     }
 
     async checkDid() {
@@ -72,16 +73,6 @@ const styles = StyleSheet.create({
       backgroundColor: "#fff",
       flex: 1,
       justifyContent: 'space-evenly',
-    },
-    btnProfilo: {
-        height: "5%",
-        width: "20%",
-        position: 'absolute',
-        textAlign: 'center',
-        backgroundColor: 'purple',
-        top: 20,
-        right: 20,
-        elevation:3,
     },
     listLines:{
         flex:4,

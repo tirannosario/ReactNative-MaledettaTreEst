@@ -146,6 +146,10 @@ class BoardPage extends React.Component {
         this.setState(this.state)
     }
 
+    handleProfileClick = () => {
+        this.props.navigation.navigate("Profile")
+    }
+
 }
 
 
@@ -248,7 +252,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         width: 35,
         height: 35,
-      }
+      },
   });
  
 export default BoardPage;
