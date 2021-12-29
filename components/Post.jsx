@@ -23,15 +23,19 @@ class Post extends React.Component {
     }
     
     componentDidMount(){
+        console.log("MOUNT")
         this.retrieveUserPic()
     }
 
-    componentDidUpdate(pastProps){
-        if(pastProps.data.item.pversion != this.props.data.item.pversion){
-            console.log("nuova user pic!")
-            this.retrieveUserPic()
-        }
-    }
+    // componentDidUpdate(pastProps){
+    //     // se la versione della pic è cambiata nei nuovi
+    //     // if(pastProps.data.item.pversion != this.props.data.item.pversion){
+    //     //     console.log("nuova user pic!")
+    //     //     this.retrieveUserPic()
+    //     // }
+    //     console.log("update " + pastProps.data.item.authorName)
+    //     // this.retrieveUserPic()
+    // }
 
     retrieveUserPic(){
         const sid = this.context.sid
@@ -68,7 +72,7 @@ class Post extends React.Component {
         return <View style={styles.postStyle}>
             <Separator/>
                 <View style={[styles.rowStyle, styles.firstRow]}>
-                    <Image style={styles.img} source={{uri:'data:image/png;base64,' + (this.state.pic==null ? this.state.placeholderPic : this.state.pic)}}/>
+                    <Image style={styles.img} source={{uri:'data:image/png;base64,' + ((this.state.pic!=null && this.isValidBase64(this.state.pic)) ? this.state.pic : this.state.placeholderPic)}}/>
                     <Text style={styles.authorName}>{post.authorName}</Text>
                     <Button title={post.followingAuthor ? "Non Seguire" : "Segui"} onPress={() => this.handleFollowUser(post.author, post.followingAuthor)}></Button>
                 </View>
@@ -88,6 +92,11 @@ class Post extends React.Component {
                 <Text>{post.datetime.replace(post.datetime.substr(post.datetime.indexOf('.'), post.datetime.length), "")}</Text> 
             <Separator/>
         </View>;
+    }
+
+    isValidBase64(text){
+        var base64regex = /[A-Za-z0-9+/]/;
+        return base64regex.test(text)
     }
 
     handleFollowUser = (uid, alreadyFollow) => {
