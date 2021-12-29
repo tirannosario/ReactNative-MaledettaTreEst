@@ -63,7 +63,7 @@ class CreatePostPage extends React.Component {
                     <TextInput
                         style={styles.input}
                         onChangeText={this.onChangeComment}
-                        placeholder="Digita Commento <= 100 char"
+                        placeholder="Digita Commento minore di 100 caratteri"
                     />
                     <View style={styles.rowInputStyle}>
                         <Text style={styles.infoCreatePost}>Ritardo:</Text>

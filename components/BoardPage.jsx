@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
             backgroundColor: 'white',
             borderRadius: 15,
             padding: 18,
-            margin: 16,
+            margin: 8,
     },
     infoDirectionStyle: {
         flexDirection: 'row',
@@ -249,11 +249,11 @@ const styles = StyleSheet.create({
           marginRight: 12
       },
       infoListStyle:{
-          fontSize: 20,
-          marginTop: 5,
+          fontSize: 18,
+          marginTop: 0,
           marginLeft: 16,
           fontWeight: 'bold',
-          color:'#333E63'
+          color:'#333E63',
       },
       infoText:{
           marginLeft: 20,

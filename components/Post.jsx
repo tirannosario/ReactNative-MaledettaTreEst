@@ -86,12 +86,12 @@ class Post extends React.Component {
                     <Text style={styles.rightItem}>Stato</Text>
                 </View>
                 <View style={styles.rowStyle}>
-                    <Text style={[styles.importantInfo, styles.leftItem]}>{delay_values[post.delay] != undefined ? delay_values[post.delay] : "//"}</Text>
-                    <Text style={[styles.importantInfo, styles.rightItem]}>{status_values[post.status] != undefined ? status_values[post.status] : "//"}</Text>
+                    <Text style={[styles.importantInfo, styles.leftItem]}>{delay_values[post.delay] != undefined ? delay_values[post.delay] : "-"}</Text>
+                    <Text style={[styles.importantInfo, styles.rightItem]}>{status_values[post.status] != undefined ? status_values[post.status] : "-"}</Text>
                 </View>
                 <Separator/>
                 <Text>Commento</Text>
-                <Text style={styles.importantInfo}>{post.comment != undefined ? post.comment : "//"}</Text>
+                <Text style={styles.importantInfo}>{post.comment != undefined ? post.comment : "-"}</Text>
                 <Separator/>
                 {/* tolgo i millisecondi */}
                 <Text>{post.datetime.replace(post.datetime.substr(post.datetime.indexOf('.'), post.datetime.length), "")}</Text> 
@@ -121,9 +121,8 @@ const styles = StyleSheet.create({
         borderBottomWidth: StyleSheet.hairlineWidth,
       },
       img: {
-        flex: 1,
-        width: 66,
-        height: 58,
+        width: 50,
+        height: 50,
     },
     postStyle:{
         alignItems: 'center',
@@ -140,15 +139,10 @@ const styles = StyleSheet.create({
         padding: 0,
         margin: 10,
     },
-    img: {
-        // flex: 1,
-        width: 50,
-        height: 50,
-    },
     rowStyle:{
-        paddingTop: 0,
-        paddingLeft:15,
-        paddingRight:15,
+        marginTop: 7,
+        paddingLeft: 15,
+        paddingRight: 15,
         width: "100%",
         flex:1,
         flexDirection: 'row',
@@ -159,19 +153,22 @@ const styles = StyleSheet.create({
         fontSize: 17,
     },
     importantInfo:{
-        color: 'orange',
+        color: '#333E63',
         fontSize: 15,
         fontWeight: '600',
-        maxWidth: "35%",
+        maxWidth: "90%",
         textAlign: 'center'
     },
     leftItem:{
         textAlign: 'left',
-        marginLeft: "11%"
+        marginLeft: "11%",
+        maxWidth: "35%", //override di importantInfo
+
     },
     rightItem:{
         textAlign: 'right',
-        marginRight: "11%"
+        marginRight: "11%",
+        maxWidth: "40%", //override di importantInfo
     },
     firstRow:{
         alignItems: 'center'
