@@ -11,6 +11,7 @@ import CommunicationController from './CommunicationController';
 import { MyContext } from './context';
 import CreatePostPage from './components/CreatePostPage';
 import StorageManager from './StorageManager';
+import MapPage from './components/MapPage';
 
 
 const Stack = createNativeStackNavigator();
@@ -49,6 +50,7 @@ class App extends React.Component {
             )})}/>
             <Stack.Screen name="CreatePost" component={CreatePostPage} options={{title: "Crea Post"}}/>
             <Stack.Screen name="Profile" component={ProfilePage} options={{title: "Il tuo Profilo"}}/>
+            <Stack.Screen name="Map" component={MapPage} options={{title: "Mappa"}}/>
           </Stack.Navigator>
         </NavigationContainer>
       </MyContext.Provider>

@@ -57,7 +57,7 @@ class BoardPage extends React.Component {
                     </TouchableOpacity>
                     <Text style={[styles.directionStyle, {textAlign:'right'}]}>{this.state.stations[this.state.stations.length-1].sname}</Text>
                 </View>
-                <Button style={styles.detailBtnStyle} title="Dettagli Tratta"></Button>
+                <Button style={styles.detailBtnStyle} title="Dettagli Tratta" onPress={()=>this.handleDetailClick()}></Button>
             </View>
             <Text style={styles.infoListStyle}>Da Utenti Seguiti</Text>
             {this.state.postsFromFollow.length > 0 ?
@@ -122,6 +122,10 @@ class BoardPage extends React.Component {
     handleCreatePost = () => {
         this.props.navigation.navigate("CreatePost", {did: this.state.did,
              departure: this.state.stations[0].sname, arrival:this.state.stations[this.state.stations.length-1].sname})
+    }
+
+    handleDetailClick = () => {
+        this.props.navigation.navigate("Map", {did: this.state.did, stations: this.state.stations})
     }
 
     refreshPosts = (sid, did) => {
