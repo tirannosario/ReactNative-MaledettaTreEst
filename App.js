@@ -10,6 +10,7 @@ import ProfilePage from './components/ProfilePage';
 import CommunicationController from './CommunicationController';
 import { MyContext } from './context';
 import CreatePostPage from './components/CreatePostPage';
+import StorageManager from './StorageManager';
 
 
 const Stack = createNativeStackNavigator();
@@ -71,6 +72,8 @@ class App extends React.Component {
           AsyncStorage.setItem("sid", unmarshelledObject["sid"]);
           this.setState({sid: newSid})
         })
+        const sm = new StorageManager();
+        sm.initDB(result => {console.log("Tabella Creata")}, error => {console.log(error)})
     }
   }
 
