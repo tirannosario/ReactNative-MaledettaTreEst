@@ -73,7 +73,7 @@ class CreatePostPage extends React.Component {
                         itemStyle={styles.pickerItemStyle}
                         onValueChange={(itemValue, itemIndex) => this.setSelectedDelay(itemIndex)}>
                             {delay_values.map(val => {
-                                return <Picker.Item label={val} value={val} />
+                                return <Picker.Item key={val} label={val} value={val} />
                             })}
                         </Picker>
                     </View>
@@ -86,7 +86,7 @@ class CreatePostPage extends React.Component {
                         itemStyle={styles.pickerItemStyle}
                         onValueChange={(itemValue, itemIndex) => this.setSelectedStatus(itemIndex)}>
                              {status_values.map(val => {
-                                return <Picker.Item label={val} value={val} />
+                                return <Picker.Item key={val} label={val} value={val} />
                             })}
                         </Picker>
                     </View>
