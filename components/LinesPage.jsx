@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import { useState, createContext, useContext } from 'react';
 import { MyContext } from '../context';
 import CommunicationController from '../CommunicationController';
@@ -33,16 +33,20 @@ class LinesPage extends React.Component {
     }
 
     render() {
+        if(this.state.lines.length != 0) {
         return <View style={styles.container}>
         <Text style={styles.titleLine}>Scegli una Direzione</Text>
-        <View style={styles.listLines}>
-            <FlatList
-                data={this.state.lines}
-                renderItem={(item) => {return (<Row data={item} handleLineClick={this.handleLineClick}/>)}}
-                keyExtractor={item => item["terminus1"]["sname"] + " - " + item["terminus2"]["sname"]}
-            />
+            <View style={styles.listLines}>
+                <FlatList
+                    data={this.state.lines}
+                    renderItem={(item) => {return (<Row data={item} handleLineClick={this.handleLineClick}/>)}}
+                    keyExtractor={item => item["terminus1"]["sname"] + " - " + item["terminus2"]["sname"]}
+                />
+            </View>
         </View>
-      </View>
+        }
+        else
+            return <ActivityIndicator size="large" color="#656CEE" style={styles.activityIndicator} />
     }
 
     handleLineClick = (direction, inverseDirection) => {
@@ -97,7 +101,13 @@ const styles = StyleSheet.create({
         marginVertical: 8,
         borderBottomColor: '#737373',
         borderBottomWidth: StyleSheet.hairlineWidth,
-      }
+      },
+    activityIndicator: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 80
+     }
   });
 
 export default LinesPage;

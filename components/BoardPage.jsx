@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button, Image } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button, Image, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CommunicationController from '../CommunicationController';
 import { MyContext } from '../context';
@@ -101,7 +101,9 @@ class BoardPage extends React.Component {
         </View>;
         }
         else
-            return <View></View>
+            return <View style={styles.container}>
+                 <ActivityIndicator size="large" color="#656CEE" style={styles.activityIndicator}/>
+            </View>
     }
 
     async checkDid() {
@@ -273,6 +275,12 @@ const styles = StyleSheet.create({
         width: 35,
         height: 35,
       },
+      activityIndicator: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 80
+     }
   });
  
 export default BoardPage;
