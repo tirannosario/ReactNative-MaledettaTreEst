@@ -89,6 +89,14 @@ class ProfilePage extends React.Component {
             return
         else {
             //TODO controllare che sia rettangolare e la size (attr.b width e height dell'oggetto pickResult)
+            if(pickerResult.width != pickerResult.height){
+                alert("Caricare immagini quadrate !")
+                return
+            }
+            if(pickerResult.base64.length >= 137000){
+                alert("Caricare immagini con grandezza inferiore a 100KB !")
+                return
+            }
             this.state.pic = pickerResult.base64
             this.setState(this.state)
         }
