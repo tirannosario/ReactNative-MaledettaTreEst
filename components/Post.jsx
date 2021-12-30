@@ -23,7 +23,6 @@ class Post extends React.Component {
     }
     
     componentDidMount(){
-        console.log("MOUNT")
         this.retrieveUserPic()
     }
 
@@ -41,6 +40,7 @@ class Post extends React.Component {
         if(post.pversion > 0){
                 console.log("Voglio la picture di " + post.author)
                 let sm = new StorageManager();
+                // richiedo la pic con la pversion del post (la più nuova)
                 sm.getUserPicture(post.author, post.pversion,
                     result => {
                         if(result.rows.length > 0) {
@@ -67,17 +67,22 @@ class Post extends React.Component {
 
     render() { 
         const post = this.props.data.item
+        const uid = this.context.uid
         return <View style={styles.postStyle}>
             <Separator/>
                 <View style={[styles.rowStyle, styles.firstRow]}>
+                    {/* su iOS ha un comportamento strano e alcune volte non carica le pic in maniera corretta */}
                     <Image style={styles.img} source={{uri:'data:image/png;base64,' + ((this.state.pic!=null && this.isValidBase64(this.state.pic)) ? this.state.pic : this.state.placeholderPic)}}/>
-                    <Text style={styles.authorName}>{post.authorName}</Text>
-                    <TouchableOpacity
-                    activeOpacity={0.7}
-                    style={styles.followBtn}
-                    onPress={() => this.handleFollowUser(post.author, post.followingAuthor)}>
-                        <Text style={styles.followBtnText}>{post.followingAuthor ? "Non Seguire" : "Segui"}</Text>
-                    </TouchableOpacity>
+                    <Text style={styles.authorName}>{post.author == uid ? "Tu" : post.authorName}</Text>
+                    {post.author != uid ?
+                        <TouchableOpacity
+                        activeOpacity={0.7}
+                        style={styles.followBtn}
+                        onPress={() => this.handleFollowUser(post.author, post.followingAuthor)}>
+                            <Text style={styles.followBtnText}>{post.followingAuthor ? "Non Seguire" : "Segui"}</Text>
+                        </TouchableOpacity>
+                    : <TouchableOpacity></TouchableOpacity>
+                    }
                 </View>
                 <View style={styles.rowStyle}>
                     <Text style={styles.leftItem}>Ritardo</Text>
@@ -149,6 +154,7 @@ const styles = StyleSheet.create({
     authorName:{
         fontWeight: 'bold',
         fontSize: 17,
+        color: '#333E63',
     },
     importantInfo:{
         color: '#333E63',

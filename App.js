@@ -19,16 +19,17 @@ const Stack = createNativeStackNavigator();
 class App extends React.Component {
   state = {
     did: null,
-    sid: null
+    sid: null,
+    uid: null
   }
 
   componentDidMount(){
-    this.checkSid().then().catch(error => console.log(error));
+    this.checkSid().then(res => this.retrieveUid()).catch(error => console.log(error));
   }
 
   render() {
-    if(this.state.sid != null){
-      return <MyContext.Provider value={{sid: this.state.sid}}>
+    if(this.state.sid != null && this.state.uid != null){
+      return <MyContext.Provider value={{sid: this.state.sid, uid: this.state.uid}}>
         <NavigationContainer>
           <Stack.Navigator initialRouteName='Lines'>
             {/* il Navigation viene passato tra i props agli Screen Figli */}
@@ -67,7 +68,7 @@ class App extends React.Component {
     }
     else
     {
-        CommunicationController.register()
+        await CommunicationController.register()
         .then(unmarshelledObject => {
           const newSid = unmarshelledObject["sid"];
           console.log("Registrazione...SID recuperato: " + unmarshelledObject["sid"]);
@@ -77,6 +78,13 @@ class App extends React.Component {
         const sm = new StorageManager();
         sm.initDB(result => {console.log("Tabella Creata")}, error => {console.log(error)})
     }
+  }
+
+  async retrieveUid(){
+    CommunicationController.getProfile(this.state.sid).then(unmarshelledObject => {
+      this.state.uid = unmarshelledObject.uid
+      this.setState(this.state)
+    })
   }
 
 
