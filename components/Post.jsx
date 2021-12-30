@@ -27,15 +27,13 @@ class Post extends React.Component {
         this.retrieveUserPic()
     }
 
-    // componentDidUpdate(pastProps){
-    //     // se la versione della pic è cambiata nei nuovi
-    //     // if(pastProps.data.item.pversion != this.props.data.item.pversion){
-    //     //     console.log("nuova user pic!")
-    //     //     this.retrieveUserPic()
-    //     // }
-    //     console.log("update " + pastProps.data.item.authorName)
-    //     // this.retrieveUserPic()
-    // }
+    componentDidUpdate(pastProps){
+        // se la versione della pic è cambiata nei nuovi post (anche me stesso, quando ritorno dalla pagina profilo)
+        if(pastProps.data.item.pversion != this.props.data.item.pversion){
+            console.log("nuova user pic!")
+            this.retrieveUserPic()
+        }
+    }
 
     retrieveUserPic(){
         const sid = this.context.sid
