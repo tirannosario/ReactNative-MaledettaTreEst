@@ -26,7 +26,10 @@ class BoardPage extends React.Component {
                 CommunicationController.getPosts(sid, did)
                 .then(unmarshelledObject => this.handlePosts(unmarshelledObject.posts))
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                console.log(error)
+                alert("Errore di Comunicazione, controlla la tua connessione o riprova tra qualche minuto")
+            })
         })
         //hooks che permette di eseguire delle azioni quando l'activity ritorna in focus
         this.props.navigation.addListener('focus', () => this.refreshPosts(sid, this.state.did))

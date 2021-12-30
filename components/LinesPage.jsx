@@ -29,7 +29,10 @@ class LinesPage extends React.Component {
                     this.props.navigation.navigate("Board")
             })
         })
-        .catch(error => console.log("ERRORE " + error))
+        .catch(error => {
+            console.log("ERRORE " + error)
+            alert("Errore di Comunicazione, controlla la tua connessione o riprova tra qualche minuto")
+        })
     }
 
     render() {

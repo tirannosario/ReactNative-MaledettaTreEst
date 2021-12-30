@@ -33,6 +33,10 @@ class ProfilePage extends React.Component {
             )
             this.setState(this.state)
         })
+        .catch(error => {
+            console.log(error)
+            alert("Errore di Comunicazione, controlla la tua connessione o riprova tra qualche minuto")
+        })
     }
 
     render() { 
@@ -84,7 +88,7 @@ class ProfilePage extends React.Component {
         if(pickerResult.cancelled === true)
             return
         else {
-            //controllare che sia rettangolare e la size (attr.b width e height dell'oggetto pickResult)
+            //TODO controllare che sia rettangolare e la size (attr.b width e height dell'oggetto pickResult)
             this.state.pic = pickerResult.base64
             this.setState(this.state)
         }

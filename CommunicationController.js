@@ -20,7 +20,7 @@ export default class CommunicationController {
         }
         else
         {
-            let error = new Error("Error message from the server. HTTP status: " + status);  
+            let error = new Error("Error message from the server. HTTP status: " + status); 
             throw error;
         }
     }
