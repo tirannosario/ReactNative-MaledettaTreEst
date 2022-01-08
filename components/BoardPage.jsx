@@ -12,7 +12,8 @@ class BoardPage extends React.Component {
         did: null,
         stations: [],
         postsFromFollow: [],
-        postsFromAll: []
+        postsFromAll: [],
+        isFetching: false
     }
 
     componentDidMount(){
@@ -74,6 +75,8 @@ class BoardPage extends React.Component {
                     data={this.state.postsFromFollow}
                     renderItem={(item) => {return (<Post data={item} refreshBoard={() => this.refreshPosts(sid, this.state.did)}/>)}}
                     keyExtractor={item => item.datetime}
+                    refreshing = {this.state.isFetching}
+                    onRefresh={() => this.refreshPosts(sid, this.state.did)}
                 />
             </View>)
             :
@@ -86,6 +89,8 @@ class BoardPage extends React.Component {
                     data={this.state.postsFromAll}
                     renderItem={(item) => {return (<Post data={item} refreshBoard={() => this.refreshPosts(sid, this.state.did)}/>)}}
                     keyExtractor={item => item.datetime}
+                    refreshing = {this.state.isFetching}
+                    onRefresh={() => this.refreshPosts(sid, this.state.did)}
                 />
             </View>)
             :
