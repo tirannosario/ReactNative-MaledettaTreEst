@@ -175,7 +175,7 @@ class BoardPage extends React.Component {
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor: '#fff'
+        backgroundColor: '#f2f4f7'
     },
     separator: {
         marginVertical: 8,

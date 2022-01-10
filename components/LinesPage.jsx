@@ -77,7 +77,7 @@ class LinesPage extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-      backgroundColor: "#fff",
+      backgroundColor: "#f2f4f7",
       flex: 1,
       justifyContent: 'space-evenly',
     },
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         flex:4,
         fontSize: 10,
         color: "black",
-        backgroundColor: "#fff",
+        backgroundColor: "#f2f4f7",
         justifyContent: "center",
         alignItems: "center",
     },
