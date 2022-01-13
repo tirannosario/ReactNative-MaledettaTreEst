@@ -81,10 +81,19 @@ class App extends React.Component {
   }
 
   async retrieveUid(){
-    CommunicationController.getProfile(this.state.sid).then(unmarshelledObject => {
-      this.state.uid = unmarshelledObject.uid
-      this.setState(this.state)
-    })
+    const uid = await AsyncStorage.getItem("uid")
+    if(uid){
+      console.log("Ho già l'UID: " + uid)
+      this.setState({uid: uid})
+    }
+    else {
+      console.log("Recupero l'UID")
+      CommunicationController.getProfile(this.state.sid).then(unmarshelledObject => {
+        const newUid = unmarshelledObject.uid
+        AsyncStorage.setItem("uid", newUid);
+        this.setState({uid: newUid})
+      })
+    }
   }
 
 
