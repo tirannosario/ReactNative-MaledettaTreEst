@@ -75,6 +75,10 @@ class App extends React.Component {
           AsyncStorage.setItem("sid", unmarshelledObject["sid"]);
           this.setState({sid: newSid})
         })
+        .catch(error => {
+          console.log(error)
+          alert("Errore di Comunicazione, controlla la tua connessione o riprova tra qualche minuto")
+      })
         const sm = new StorageManager();
         sm.initDB(result => {console.log("Tabella Creata")}, error => {console.log(error)})
     }
@@ -93,6 +97,10 @@ class App extends React.Component {
         AsyncStorage.setItem("uid", newUid);
         this.setState({uid: newUid})
       })
+      .catch(error => {
+        console.log(error)
+        alert("Errore di Comunicazione, controlla la tua connessione o riprova tra qualche minuto")
+    })
     }
   }
 
