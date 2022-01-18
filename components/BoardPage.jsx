@@ -11,7 +11,6 @@ class BoardPage extends React.Component {
     state = {
         did: null,
         stations: [],
-        postsFromFollow: [],
         postsFromAll: [],
         isFetching: false
     }
@@ -68,21 +67,8 @@ class BoardPage extends React.Component {
                      <Text style={styles.detailBtnTextStyle}>Dettagli Tratta</Text>
                  </TouchableOpacity>
             </View>
-            <Text style={styles.infoListStyle}>Da Utenti Seguiti</Text>
-            {this.state.postsFromFollow.length > 0 ?
-             (<View style={styles.postListStyle}>
-                <FlatList
-                    data={this.state.postsFromFollow}
-                    renderItem={(item) => {return (<Post data={item} refreshBoard={() => this.refreshPosts(sid, this.state.did)}/>)}}
-                    keyExtractor={item => item.datetime}
-                    refreshing = {this.state.isFetching}
-                    onRefresh={() => this.refreshPosts(sid, this.state.did)}
-                />
-            </View>)
-            :
-            <Text style={styles.infoText}>Nessun Post...</Text>}
 
-            <Text style={styles.infoListStyle}>Da Tutti</Text>
+            <Text style={styles.infoListStyle}>Post</Text>
             {this.state.postsFromAll.length > 0 ?
             (<View style={styles.postListStyle}>
                 <FlatList
@@ -154,13 +140,9 @@ class BoardPage extends React.Component {
     }
 
     handlePosts = (postsList) => {
-        this.state.postsFromFollow = []
         this.state.postsFromAll = []
         for(const post of postsList){
-            if(post.followingAuthor)
-                this.state.postsFromFollow.push(post)
-            else
-                this.state.postsFromAll.push(post)
+            this.state.postsFromAll.push(post)
         }
         this.setState(this.state)
     }

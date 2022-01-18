@@ -77,7 +77,7 @@ class Post extends React.Component {
                     {post.author != uid ?
                         <TouchableOpacity
                         activeOpacity={0.7}
-                        style={styles.followBtn}
+                        style={[styles.followBtn , post.followingAuthor ? styles.unfollowBtn : null]}
                         onPress={() => this.handleFollowUser(post.author, post.followingAuthor)}>
                             <Text style={styles.followBtnText}>{post.followingAuthor ? "Non Seguire" : "Segui"}</Text>
                         </TouchableOpacity>
@@ -89,12 +89,12 @@ class Post extends React.Component {
                     <Text style={styles.rightItem}>Stato</Text>
                 </View>
                 <View style={styles.rowStyle}>
-                    <Text style={[styles.importantInfo, styles.leftItem]}>{delay_values[post.delay] != undefined ? delay_values[post.delay] : "-"}</Text>
-                    <Text style={[styles.importantInfo, styles.rightItem]}>{status_values[post.status] != undefined ? status_values[post.status] : "-"}</Text>
+                    <Text style={[styles.importantInfo, styles.leftItem, post.followingAuthor ? styles.infoFollowPost : null]}>{delay_values[post.delay] != undefined ? delay_values[post.delay] : "-"}</Text>
+                    <Text style={[styles.importantInfo, styles.rightItem, post.followingAuthor ? styles.infoFollowPost : null]}>{status_values[post.status] != undefined ? status_values[post.status] : "-"}</Text>
                 </View>
                 <Separator/>
                 <Text>Commento</Text>
-                <Text style={styles.importantInfo}>{post.comment != undefined ? post.comment : "-"}</Text>
+                <Text style={[styles.importantInfo, post.followingAuthor ? styles.infoFollowPost : null]}>{post.comment != undefined ? post.comment : "-"}</Text>
                 <Separator/>
                 {/* tolgo i millisecondi */}
                 <Text>{post.datetime.replace(post.datetime.substr(post.datetime.indexOf('.'), post.datetime.length), "")}</Text> 
@@ -192,6 +192,14 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         letterSpacing: 0.2
     },
+    unfollowBtn:{
+        backgroundColor: '#F8A059',
+        borderColor: '#F8A059'
+    },
+    infoFollowPost:{
+        color: '#F8A059',
+        fontWeight: '700'
+    }
   });
  
 export default Post;
