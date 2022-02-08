@@ -71,7 +71,6 @@ class Post extends React.Component {
         return <View style={styles.postStyle}>
             <Separator/>
                 <View style={[styles.rowStyle, styles.firstRow]}>
-                    {/* su iOS ha un comportamento strano e alcune volte non carica le pic in maniera corretta */}
                     <Image style={styles.img} source={{uri:'data:image/png;base64,' + ((this.state.pic!=null && this.isValidBase64(this.state.pic)) ? this.state.pic : this.state.placeholderPic)}}/>
                     <Text style={styles.authorName}>{post.author == uid ? "Tu" : post.authorName}</Text>
                     {post.author != uid ?
@@ -103,8 +102,17 @@ class Post extends React.Component {
     }
 
     isValidBase64(text){
-        var base64regex = /[A-Za-z0-9+/]/;
-        return base64regex.test(text)
+        let knownTypes = {
+            '/': 'data:image/jpg;base64,',
+            'i': 'data:image/png;base64,',
+        }
+        if(!knownTypes[text[0]]){
+            console.log("encoded image didn't match known types");
+            return false;
+        }else{
+            var base64regex = /[A-Za-z0-9+/]/;
+            return base64regex.test(text)
+        }
     }
 
     handleFollowUser = (uid, alreadyFollow) => {
