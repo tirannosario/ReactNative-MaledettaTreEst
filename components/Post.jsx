@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     importantInfo:{
         color: '#333E63',
         fontSize: 15,
-        fontWeight: '600',
+        fontWeight: '700',
         maxWidth: "90%",
         textAlign: 'center'
     },
