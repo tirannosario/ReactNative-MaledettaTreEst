@@ -70,7 +70,7 @@ class ProfilePage extends React.Component {
 
     onChangeName = (value) => {
         if(value.length > 20)
-            alert("Commento più piccolo di 20 caratteri, pls")
+            alert("Nome più piccolo di 20 caratteri, pls")
         else {
             this.state.username = value;
         }

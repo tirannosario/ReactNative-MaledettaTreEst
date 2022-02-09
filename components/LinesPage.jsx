@@ -18,16 +18,17 @@ class LinesPage extends React.Component {
     }
 
     componentDidMount(){
+        // se ho già scelto un did in precedenza mi riporta alla corrispettiva bacheca
+        this.checkDid().then(did => {
+            if(did != -1)
+                this.props.navigation.navigate("Board")
+        })
+        
         const sid = this.context.sid
         CommunicationController.getLines(sid)
         .then(unmarshelledObject => {
             this.state.lines = unmarshelledObject["lines"]
             this.setState(this.state)
-            // se ho già scelto un did in precedenza mi riporta alla corrispettiva bacheca
-            this.checkDid().then(did => {
-                if(did != -1)
-                    this.props.navigation.navigate("Board")
-            })
         })
         .catch(error => {
             console.log("ERRORE " + error)
