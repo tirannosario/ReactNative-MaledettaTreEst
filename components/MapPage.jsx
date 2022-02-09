@@ -127,9 +127,7 @@ class MapPage extends React.Component {
             } 
         }  
         if (canUseLocation) {
-            // sto prendendo l'ultima pos calcolata (che potrebbe non andare bene, poichè vecchia), se voglio la più recente uso getCurrentPositionAsync (su simulatore non funziona)
-            // const location = await Location.getLastKnownPositionAsync()
-            const location = await Location.getCurrentPositionAsync()
+            const location = await Location.getCurrentPositionAsync({accuracy: Location.Accuracy.Highest})
             console.log("latitude: " + location.coords.latitude + " , longitude: " + location.coords.longitude)
             this.state.location = location.coords;
             this.setState(this.state)

@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
           marginRight: 12
       },
       infoListStyle:{
-          fontSize: 18,
+          fontSize: 24,
           marginTop: 0,
           marginLeft: 16,
           fontWeight: 'bold',
